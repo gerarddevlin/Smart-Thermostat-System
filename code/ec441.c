@@ -1,18 +1,3 @@
-/* Simple HTTP Server Example
-
-   This example code is in the Public Domain (or CC0 licensed, at your option.)
-
-   Unless required by applicable law or agreed to in writing, this
-   software is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-   CONDITIONS OF ANY KIND, either express or implied.
-
-   Modifed to handle:
-   -- GET request to fetch mac address of the ESP32
-   -- PUT request to toggle onboard LED on and off
-
-   Emily Lam -- October 2018
-*/
-
 #include <esp_wifi.h>
 #include <esp_event_loop.h>
 #include <esp_log.h>
@@ -65,14 +50,6 @@
 #include "driver/uart.h"
 #include "sdkconfig.h"
 
-/* A simple example that demonstrates how to create GET and POST
- * handlers for the web server.
- * The examples use simple WiFi configuration that you can set via
- * 'make menuconfig'.
- * If you'd rather not, just change the below entries to strings
- * with the config you want -
- * ie. #define EXAMPLE_WIFI_SSID "mywifissid"
-*/
 #define EXAMPLE_WIFI_SSID "Group_15"
 #define EXAMPLE_WIFI_PASS "smart-systems"
 
@@ -237,10 +214,6 @@ static void i2c_example_master_init()
 
 uint8_t* calc_nums(char* val){
   uint8_t* data = (uint8_t*) malloc(DATA_LENGTH);
-  /*printf("VAL: ");
-  for(int i =0; i < 4; i++)
-    printf("%c", val[i]);
-  printf("\n");*/
   switch(val[0]) {
     
      
@@ -400,60 +373,10 @@ uint8_t* calc_nums(char* val){
     data[4] = 0b11101111;
     break;
   }
+   
+   //F for Farenheit
     data[7] = 0b00000000;
     data[6] = 0b01110001;
-  /*switch(val[3]) {
-    
-    case '0' :
-    data[7] = 0b00001100;
-    data[6] = 0b00111111;
-    break;
-
-    case '1' :
-    data[7] = 0b00000000;
-    data[6] = 0b00000110;
-    break;
-
-    case '2' :
-    data[7] = 0b00000000;
-    data[6] = 0b11011011;
-    break;
-
-    case '3' :
-    data[7] = 0b00000000;
-    data[6] = 0b10001111;
-    break;
-
-    case '4' :
-    data[7] = 0b00000000;
-    data[6] = 0b11100110;
-    break;
-
-    case '5' :
-    data[7] = 0b00100000;
-    data[6] = 0b01101001;
-    break;
-
-    case '6' :
-    data[7] = 0b00000000;
-    data[6] = 0b11111101;
-    break;
-
-    case '7' :
-    data[7] = 0b00000000;
-    data[6] = 0b00000111;
-    break;
-
-    case '8' :
-    data[7] = 0b00000000;
-    data[6] = 0b11111111;
-    break;
-
-    case '9' :
-    data[7] = 0b00000000;
-    data[6] = 0b11101111;
-    break;
-  }*/
 
   return data;
   free(data);
@@ -462,13 +385,6 @@ uint8_t* calc_nums(char* val){
 
 static void setup(){//setup
   int ret;
- // uint8_t* data = (uint8_t*) malloc(DATA_LENGTH);
-  
- // uint32_t hour = 13;
-  //uint32_t min = 30;
-  //data = calc_nums(hour, min, data);
-
- // ret = i2c_example_master_write_slave(I2C_EXAMPLE_MASTER_NUM, data);
 
     uint8_t osc = 0x21;
     uint8_t* oscp = &osc;
@@ -573,47 +489,7 @@ void IRAM_ATTR timer_group0_isr(void *para)
     /* Now just send the event data back to the main program task */
     xQueueSendFromISR(timer_queue, &evt, NULL);
 }
-/*
-void IRAM_ATTR timer_group1_isr(void *para)
-{
-    int timer_idx = (int) para;
 
-     Retrieve the interrupt status and the counter value
-       from the timer that reported the interrupt 
-    uint32_t intr_status = TIMERG0.int_st_timers.val;
-    TIMERG0.hw_timer[timer_idx].update = 1;
-    uint64_t timer_counter_value = 
-        ((uint64_t) TIMERG0.hw_timer[timer_idx].cnt_high) << 32
-        | TIMERG0.hw_timer[timer_idx].cnt_low;
-
-     Prepare basic event data
-       that will be then sent back to the main program task 
-    timer_event_t evt;
-    evt.timer_group = 1;
-    evt.timer_idx = timer_idx;
-    evt.timer_counter_value = timer_counter_value;
-
-     Clear the interrupt
-       and update the alarm time for the timer with without reload 
-    if ((intr_status & BIT(timer_idx)) && timer_idx == TIMER_1) {
-        evt.type = TEST_WITHOUT_RELOAD;
-        TIMERG0.int_clr_timers.t0 = 1;
-        timer_counter_value += (uint64_t) (TIMER_INTERVAL0_SEC * TIMER_SCALE);
-        TIMERG0.hw_timer[timer_idx].alarm_high = (uint32_t) (timer_counter_value >> 32);
-        TIMERG0.hw_timer[timer_idx].alarm_low = (uint32_t) timer_counter_value;
-    } else if ((intr_status & BIT(timer_idx)) && timer_idx == TIMER_1) {
-        evt.type = TEST_WITH_RELOAD;
-        TIMERG0.int_clr_timers.t1 = 1;
-    } else {
-        evt.type = -1; // not supported even type
-    }
-
-    After the alarm has been triggered
-      we need enable it again, so it is triggered the next time 
-    TIMERG0.hw_timer[timer_idx].config.alarm_en = TIMER_ALARM_EN;
-     Now just send the event data back to the main program task 
-    xQueueSendFromISR(timer_queue1, &evt, NULL);
-}*/
 //Timer
 static void example_tg0_timer_init(int timer_idx, 
     bool auto_reload, double timer_interval_sec)
@@ -648,68 +524,7 @@ static void mcpwm_example_gpio_initialize()
     mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, 26);    //Set GPIO 18 as PWM0A, to which servo is connected
 }
 
-/**
- * @brief Use this function to calcute pulse width for per degree rotation
- *
- * @param  degree_of_rotation the angle in degree to which servo has to rotate
- *
- * @return
- *     - calculated pulse width
- */
-static uint32_t servo_per_degree_init(uint32_t degree_of_rotation)
-{
-    uint32_t cal_pulsewidth = 0;
-    cal_pulsewidth = (SERVO_MIN_PULSEWIDTH + (((SERVO_MAX_PULSEWIDTH - SERVO_MIN_PULSEWIDTH) * (degree_of_rotation)) / (SERVO_MAX_DEGREE)));
-    return cal_pulsewidth;
-}
 
-void servo_on()
-{
-    uint32_t angle, count;
-    //1. mcpwm gpio initialization
-    mcpwm_example_gpio_initialize();
-     //timer_event_t evt;
-
-    //2. initial mcpwm configuration
-    printf("Configuring Initial Parameters of mcpwm......\n");
-    mcpwm_config_t pwm_config;
-    pwm_config.frequency = 50;    //frequency = 50Hz, i.e. for every servo motor time period should be 20ms
-    pwm_config.cmpr_a = 0;    //duty cycle of PWMxA = 0
-    pwm_config.cmpr_b = 0;    //duty cycle of PWMxb = 0
-    pwm_config.counter_mode = MCPWM_UP_COUNTER;
-    pwm_config.duty_mode = MCPWM_DUTY_MODE_0;
-    mcpwm_init(MCPWM_UNIT_0, MCPWM_TIMER_0, &pwm_config);    //Configure PWM0A & PWM0B with above settings
-    /*
-    timer_queue = xQueueCreate(10, sizeof(timer_event_t));
-        example_tg0_timer_init(TIMER_1, TEST_WITHOUT_RELOAD, TIMER_INTERVAL1_SEC);
-        count = 0;
-    while(1){
-
-            timer_event_t evt;
-            xQueueReceive(timer_queue, &evt, portMAX_DELAY);
-
-            printf("Angle of rotation: %d\n", count);
-            angle = servo_per_degree_init(count);
-            printf("pulse width: %dus\n", angle);
-            mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, angle);
-            if(count >= SERVO_MAX_DEGREE){
-                count = 0;
-            }
-            else{
-                count++;
-            }
-        
-    }*/
-    for(int i = 0; i < 1; i++) {
-        for (count = 0; count < SERVO_MAX_DEGREE; count++) {
-            printf("Angle of rotation: %d\n", count);
-            angle = servo_per_degree_init(count);
-            printf("pulse width: %dus\n", angle);
-            mcpwm_set_duty_in_us(MCPWM_UNIT_0, MCPWM_TIMER_0, MCPWM_OPR_A, angle);
-            vTaskDelay(10);     //Add delay, since it takes time for servo to rotate, generally 100ms/60degree rotation at 5V
-        }
-    }
-}
 float currtemp = 0;
 static void checktemp(){
     while(1){
@@ -838,40 +653,6 @@ httpd_uri_t power = {
     .user_ctx  = NULL
 };
 
-esp_err_t button_put_handler(httpd_req_t *req)
-{
-    char buf;
-    int ret;
-
-    // Received
-    if ((ret = httpd_req_recv(req, &buf, 1)) < 0) {
-        return ESP_FAIL;
-    }
-
-    // LED off
-    if (buf == '0') {
-        ESP_LOGI(TAG, "Button Off");
-        gpio_set_level(Button_Out, 0);
-    }
-    // LED on
-    else {
-        ESP_LOGI(TAG, "Button On");
-        gpio_set_level(Button_Out, 1);
-    }
-
-    /* Respond with empty body */
-    httpd_resp_send(req, NULL, 0);
-    return ESP_OK;
-}
-
-httpd_uri_t button = {
-    .uri       = "/button",
-    .method    = HTTP_PUT,
-    .handler   = button_put_handler,
-    .user_ctx  = NULL
-};
-
-
 esp_err_t temp_get_handler(httpd_req_t *req)
 {
     // Convert mac address to string
@@ -950,154 +731,6 @@ httpd_uri_t settemp = {
     .user_ctx  = NULL
 };
 
-esp_err_t servo_put_handler(httpd_req_t *req)
-{
-     ESP_LOGI(TAG, "servo On");
-
-    //NTP TIMEEEEE
-    time_t now;
-    struct tm timeinfo;
-    time(&now);
-    localtime_r(&now, &timeinfo);
-    // Is time set? If not, tm_year will be (1970 - 1900).
-    if (timeinfo.tm_year < (2016 - 1900)) {
-        ESP_LOGI(TAG, "Time is not set yet. Connecting to WiFi and getting time over NTP.");
-        obtain_time();
-        // update 'now' variable with current time
-        time(&now);
-    }
-    char strftime_buf[64];
-
-    // Set timezone to Eastern Standard Time and print local time
-    setenv("TZ", "EST5EDT,M3.2.0/2,M11.1.0", 1);
-    tzset();
-    localtime_r(&now, &timeinfo);
-    strftime(strftime_buf, sizeof(strftime_buf), "%c", &timeinfo);
-    ESP_LOGI(TAG, "The current date/time in New York is: %s", strftime_buf);
-
-
-    char time[8];
-    int hour1,min1,sec1;
-    strncpy(time,strftime_buf+11,8); //only look at time of day
-    printf("time = %s",time);
-    char h1[2];
-    h1[0] = time[0];
-    h1[1] = time[1];
-    hour1 = atoi(h1);
-    printf("HOURS: %d\n",hour1);
-    char m1[2];
-    m1[0] = time[3];
-    m1[1] = time[4];
-    min1 = atoi(m1);
-    printf("MIN: %d\n",min1);
-    char s1[2];
-    s1[0] = time[6];
-    s1[1] = time[7];
-    sec1 = atoi(s1);
-    printf("SEC: %d\n",sec1);
-
-    printf("hour = %d, min = %d, sec = %d\n",hour1,min1,sec1);
-
-    char buf[10];
-    int ret;
-
-    // Received
-    if ((ret = httpd_req_recv(req, buf, sizeof(buf))) < 0) {
-        return ESP_FAIL;
-    }
-    
-    char hour[2];
-   
-
-    hour[0] = buf[0];
-    hour[1] = buf[1];
-    int h = atoi(hour);
-
-    
-    char min[2];
-    min[0] = buf[2];
-    min[1] = buf[3];
-   
-    int m = atoi(min);
-    printf("Hours:%d\n",h);
-    printf("Minutes:%d\n",m);
-     //LED off
-    int currtime = (hour1*3600) + (min1*60) + sec1;
-    int settime  = (h*3600) + (m*60);
-
-    int timer = settime - currtime; 
-   
-    //TIMER_INTERVAL0_SEC = 1;
-    // LED on
-
-       // ESP_LOGI(TAG, "servo On");
-        //gpio_set_level(LEDPIN, 1);
-        timer_event_t evt;
-        timer_queue = xQueueCreate(10, sizeof(timer_event_t));
-       TIMER_INTERVAL0_SEC = timer;
-        //printf("%d",buf);
-        example_tg0_timer_init(TIMER_0, TEST_WITHOUT_RELOAD, TIMER_INTERVAL0_SEC);
-        //for(;;) {
-            if(xQueueReceive(timer_queue, &evt, portMAX_DELAY)) {
-                servo_on();
-            }
-        //}
-        
-    
-
-    /* Respond with empty body */
-    httpd_resp_send(req, NULL, 0);
-    return ESP_OK;
-}
-
-httpd_uri_t servo = {
-    .uri       = "/servo",
-    .method    = HTTP_PUT,
-    .handler   = servo_put_handler,
-    .user_ctx  = NULL
-};
-
-esp_err_t now_put_handler(httpd_req_t *req)
-{
-    char buf;
-    int ret;
-
-    // Received
-    if ((ret = httpd_req_recv(req, &buf, sizeof(buf))) < 0) {
-        return ESP_FAIL;
-    }
-
-    
-   
-    //TIMER_INTERVAL0_SEC = 1;
-    // LED on
-        ESP_LOGI(TAG, "servo On");
-        //gpio_set_level(LEDPIN, 1);
-        /*timer_event_t evt;
-        timer_queue = xQueueCreate(10, sizeof(timer_event_t));
-       TIMER_INTERVAL0_SEC = 1;
-        printf("%d",buf);
-        example_tg0_timer_init(TIMER_0, TEST_WITHOUT_RELOAD, TIMER_INTERVAL0_SEC);
-        for(;;) {
-            if(xQueueReceive(timer_queue, &evt, portMAX_DELAY)) {
-                servo_on();
-            }
-        }*/
-        servo_on();
-        
-    
-
-    /* Respond with empty body */
-    httpd_resp_send(req, NULL, 0);
-    return ESP_OK;
-}
-
-httpd_uri_t now = {
-    .uri       = "/now",
-    .method    = HTTP_PUT,
-    .handler   = now_put_handler,
-    .user_ctx  = NULL
-};
 
 // Code for the httpd server
 httpd_handle_t start_webserver(void)
@@ -1110,15 +743,10 @@ httpd_handle_t start_webserver(void)
     if (httpd_start(&server, &config) == ESP_OK) {
         // Set URI handlers
         ESP_LOGI(TAG, "Registering URI handlers");
-       // httpd_register_uri_handler(server, &hello);
-        //httpd_register_uri_handler(server, &mac);
         httpd_register_uri_handler(server, &power);
-       // httpd_register_uri_handler(server, &button);
         httpd_register_uri_handler(server, &gettemp);
         httpd_register_uri_handler(server, &settemp);
         httpd_register_uri_handler(server, &getsettemp);
-       // httpd_register_uri_handler(server, &servo);
-       // httpd_register_uri_handler(server, &now);
         return server;
     }
 
@@ -1233,23 +861,6 @@ if (unit == ADC_UNIT_1) {
     esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
     print_char_val_type(val_type);
 }
-
-/*static void check_temp(){
-    check_efuse();
-
-if (unit == ADC_UNIT_1) {
-        adc1_config_width(ADC_WIDTH_BIT_12);
-        adc1_config_channel_atten(channel, atten);
-    } else {
-        adc2_config_channel_atten((adc2_channel_t)channel, atten);
-    }
-
-    //Characterize ADC
-    adc_chars = calloc(1, sizeof(esp_adc_cal_characteristics_t));
-    esp_adc_cal_value_t val_type = esp_adc_cal_characterize(unit, atten, ADC_WIDTH_BIT_12, DEFAULT_VREF, adc_chars);
-    print_char_val_type(val_type);
-}*/
-
 
 static void heatcontrol(){
     while(1){
