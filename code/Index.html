@@ -1,0 +1,374 @@
+<!-- client side -->
+
+<!doctype html>
+<html>
+
+<!-- HTML HEAD -->
+<head>
+
+	<style>
+		body {background-color: #a39274;}
+		h1 {font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+			color: #dfd8c8;
+			text-align:center;
+		}
+		div {font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+			color: #dfd8c8;
+			text-align:center;
+		}
+		.onB1 {
+			background-color: #252523 ;
+		    border: none;
+		    color: #dfd8c8;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 12px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    margin-left: 45%;
+		    margin-right: 45%;
+		    width: 150px;
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+		    border-radius: 25px;
+		    position: absolute;
+		    top: 28vh;
+		    left: calc(25% - 75vh); 
+		}
+
+		.onB2 {
+			background-color: #252523 ;
+		    border: none;
+		    color: #dfd8c8;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 12px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    margin-left: 45%;
+		    margin-right: 45%;
+		    width: 150px;
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+		    border-radius: 25px;
+		    position: absolute;
+		    top: 62vh;
+		    left: calc(25% - 75vh); 
+		}
+
+		.offB1 {
+			background-color: #252523 ;
+		    border: none;
+		    color: #dfd8c8;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 12px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    margin-left: 45%;
+		    margin-right: 45%;
+		    width: 150px;
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+		    border-radius: 25px;
+		    position: absolute;
+		    top: 28vh;
+		    left: calc(50% - 82vh); 
+		    z-index: 10 !important;
+		}
+
+		.offB2 {
+			background-color: #252523 ;
+		    border: none;
+		    color: #dfd8c8;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 12px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    margin-left: 45%;
+		    margin-right: 45%;
+		    width: 150px;
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+		    border-radius: 25px;
+		    position: absolute;
+		    top: 62vh;
+		    left: calc(50% - 82vh); 
+		    z-index: 10 !important;
+		}
+
+
+		.form1 {
+		    border-radius: 5px;
+		    background-color: #f2f2f2;
+
+		    background-position: center;
+    		background-repeat: no-repeat;
+    		background-size: contain;
+    		background-color: transparent;
+
+    		width: 100%;
+		    height: 100%;
+		    border: none;
+		    position: absolute;
+		    top: 25vh;
+		    left: calc(45% - 0vh); 	
+		}
+
+		.form2 {
+		    border-radius: 5px;
+		    background-color: #f2f2f2;
+
+		    background-position: center;
+    		background-repeat: no-repeat;
+    		background-size: contain;
+    		background-color: transparent;
+
+    		width: 100px;
+		    height: 100px;
+		    border: none;
+		    position: absolute;
+		    top: 60vh;
+		    left: calc(45% - 0vh); 
+		}
+
+		.button1 {
+		    background-color: #252523 ;
+		    border: none;
+		    color: #dfd8c8;
+		    padding: 15px 32px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 12px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    width: 150px;
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+		    border-radius: 0 !important;
+		    text-align: center; 
+		}
+
+		.currentTemp1 {
+			position: absolute;
+		    top: 40vh;
+		    left: calc(45% - 7vh);
+		}
+
+		.currentTemp2 {
+			position: absolute;
+		    top: 75vh;
+		    left: calc(45% - 7vh);
+		}
+
+		.currentTemp3 {
+			position: absolute;
+		    top: 42vh;
+		    left: calc(45% - 7vh);
+		}
+
+		.currentTemp4 {
+			position: absolute;
+		    top: 77vh;
+		    left: calc(45% - 7vh);
+		}
+
+		input[type=submit], select {
+		    background-color: #252523 ;
+		    border: none;
+		    color: #dfd8c8;
+		    padding: 15px 32px;
+		    text-align: left;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 12px;
+		    margin: 4px 2px;
+		    cursor: pointer;
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+		    border-radius: 25px;
+		}
+
+		input[type=text] {
+		    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; 
+			color: #dfd8c8;
+		}
+
+	</style>
+
+	<title>Thermostat Control</title>
+
+	<!-- Source for Socket.io - this one is local -->
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+</head>
+
+<body>
+	<!-- HTML layout -->
+  <h1>Thermostat Control</h1> <br>
+
+  	<br>
+
+  	<button class="onB1" onclick="turnOn1()">Thermostat #1 On</button>
+
+  	<button class="offB1" onclick="turnOff1()">Thermostat #1 Off</button>
+
+  	<button class="onB2" onclick="turnOn2()">Thermostat #2 On</button>
+
+  	<button class="offB2" onclick="turnOff2()">Thermostat #2 Off</button>
+
+  	<br>
+
+  	<div class="currentTemp1" id="currentTemp1"></div>
+
+  	<div class="currentTemp2" id="currentTemp2"></div>
+
+  	<div class="currentTemp3" id="currentTemp3"></div>
+
+  	<div class="currentTemp4" id="currentTemp4"></div>
+
+  	<p id="demo"></p>
+
+	<script>
+			function getTemp(event) {
+			  	//document.getElementById("demo").innerHTML = "Hello World";
+			  	//var io1 = require('http').Server(app);
+			  	//let x = "Test Console on button";
+			  	//console.log(x);
+			  	//var x = "tester";
+			  	var socket = io();
+				socket.emit('now', "tester");
+			}
+	</script>
+
+	<script>
+			function turnOn1(event) {
+			  	//document.getElementById("demo").innerHTML = "Hello World";
+			  	//var io1 = require('http').Server(app);
+			  	//let x = "Test Console on button";
+			  	//console.log(x);
+			  	//var x = "tester";
+			  	var socket = io();
+				socket.emit('power', "1");
+			}
+	</script>
+
+	<script>
+			function turnOff1(event) {
+			  	//document.getElementById("demo").innerHTML = "Hello World";
+			  	//var io1 = require('http').Server(app);
+			  	//let x = "Test Console on button";
+			  	//console.log(x);
+			  	//var x = "tester";
+			  	var socket = io();
+				socket.emit('power', "0");
+			}
+	</script>
+
+	<script>
+			function turnOn2(event) {
+			  	//document.getElementById("demo").innerHTML = "Hello World";
+			  	//var io1 = require('http').Server(app);
+			  	//let x = "Test Console on button";
+			  	//console.log(x);
+			  	//var x = "tester";
+			  	var socket = io();
+				socket.emit('power1', "1");
+			}
+	</script>
+
+	<script>
+			function turnOff2(event) {
+			  	//document.getElementById("demo").innerHTML = "Hello World";
+			  	//var io1 = require('http').Server(app);
+			  	//let x = "Test Console on button";
+			  	//console.log(x);
+			  	//var x = "tester";
+			  	var socket = io();
+				socket.emit('power1', "0");
+			}
+	</script>
+
+
+
+	
+	<!-- Script to handle socket and so to update chart datapoints -->
+	<script>
+		var socket = io();
+		socket.on('message', function(msg){
+			console.log(msg);
+			document.getElementById("currentTemp1").innerHTML = "Thermostat #1 Temperature: " + msg + "°F";
+			// Update data array
+		});
+	</script>
+
+	<script>
+		var socket = io();
+		socket.on('message1', function(msg){
+			console.log(msg);
+			document.getElementById("currentTemp2").innerHTML = "Thermostat #2 Temperature: " + msg + "°F";
+			// Update data array
+		});
+	</script>
+
+	<script>
+		var socket = io();
+		socket.on('message2', function(msg){
+			console.log(msg);
+			document.getElementById("currentTemp3").innerHTML = "Thermostat #1 Set Temperature: " + msg + "°F";
+			// Update data array
+		});
+	</script>
+
+	<script>
+		var socket = io();
+		socket.on('message3', function(msg){
+			console.log(msg);
+			document.getElementById("currentTemp4").innerHTML = "Thermostat #2 Set Temperature: " + msg + "°F";
+			// Update data array
+		});
+	</script>
+
+	<script>
+		$(document).ready(function(){
+			$('#form1').submit(function(){
+			    socket.emit('later', $('#Temp1').val());
+			    return false;
+		  });
+		});
+	</script>
+
+	<script>
+		$(document).ready(function(){
+			$('#form2').submit(function(){
+			    socket.emit('later1', $('#Temp2').val());
+			    return false;
+		  });
+		});
+	</script>
+
+	<form class = "form1" id = "form1" action = "">
+  		Thermostat #1:<br>
+  		<input type="text" id="Temp1"><br>
+  		<input type="submit" class="button1" value="Set Temperature (°F)">
+	</form>
+
+	<form class = "form2" id = "form2" action = "">
+  		Thermostat #2:<br>
+  		<input type="text" id="Temp2"><br>
+  		<input type="submit" class="button1" value="Set Temperature (°F)">
+	</form>
+
+
+	
+
+		
+
+</body>
+
+</html>
