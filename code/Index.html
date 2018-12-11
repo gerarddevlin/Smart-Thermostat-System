@@ -236,11 +236,6 @@
 
 	<script>
 			function getTemp(event) {
-			  	//document.getElementById("demo").innerHTML = "Hello World";
-			  	//var io1 = require('http').Server(app);
-			  	//let x = "Test Console on button";
-			  	//console.log(x);
-			  	//var x = "tester";
 			  	var socket = io();
 				socket.emit('now', "tester");
 			}
@@ -248,11 +243,6 @@
 
 	<script>
 			function turnOn1(event) {
-			  	//document.getElementById("demo").innerHTML = "Hello World";
-			  	//var io1 = require('http').Server(app);
-			  	//let x = "Test Console on button";
-			  	//console.log(x);
-			  	//var x = "tester";
 			  	var socket = io();
 				socket.emit('power', "1");
 			}
@@ -260,11 +250,6 @@
 
 	<script>
 			function turnOff1(event) {
-			  	//document.getElementById("demo").innerHTML = "Hello World";
-			  	//var io1 = require('http').Server(app);
-			  	//let x = "Test Console on button";
-			  	//console.log(x);
-			  	//var x = "tester";
 			  	var socket = io();
 				socket.emit('power', "0");
 			}
@@ -272,11 +257,6 @@
 
 	<script>
 			function turnOn2(event) {
-			  	//document.getElementById("demo").innerHTML = "Hello World";
-			  	//var io1 = require('http').Server(app);
-			  	//let x = "Test Console on button";
-			  	//console.log(x);
-			  	//var x = "tester";
 			  	var socket = io();
 				socket.emit('power1', "1");
 			}
@@ -284,11 +264,6 @@
 
 	<script>
 			function turnOff2(event) {
-			  	//document.getElementById("demo").innerHTML = "Hello World";
-			  	//var io1 = require('http').Server(app);
-			  	//let x = "Test Console on button";
-			  	//console.log(x);
-			  	//var x = "tester";
 			  	var socket = io();
 				socket.emit('power1', "0");
 			}
@@ -297,7 +272,7 @@
 
 
 	
-	<!-- Script to handle socket and so to update chart datapoints -->
+	<!-- Script to handle socket and so to update Text-->
 	<script>
 		var socket = io();
 		socket.on('message', function(msg){
