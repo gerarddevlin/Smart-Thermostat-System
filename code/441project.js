@@ -1,12 +1,3 @@
-/* This is an instantiation of a server that we designed:
--- to run on a local machine (laptop)
--- creates a web server that will communicate with the local USB port
--- serves a webpage to a client that will plot using a javscript chart library
--- server side
-October 2018 -- Emily Lam
-*/
-
-
 // Modules
 var SerialPort = require('serialport');
 var Readline = require('@serialport/parser-readline')
@@ -16,25 +7,6 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var request = require('request');
 
-/*
-// Open serial port
-var port = new SerialPort('/COM3', {baudRate: 115200});
-
-// Read data from serial
-var read_data;
-var msg;
-const parser = port.pipe(new Readline({ delimiter: '\r\n' }))
-parser.on('data', function (data) {
-  read_data = data;
-  console.log('Read:', read_data);
-  msg = parseInt(read_data);  // Convert to int
-  io.emit('message', msg);
-});
-*/
-
-   // Test stuff --> no serial port
-   
-   
    setInterval( function() {
       const https = require('http');
        let data = '';
@@ -176,12 +148,3 @@ io.on('connection', function(socket){
 http.listen(3000, function() {
   console.log('listening on *:3000');
 });
-
-/*
-var request = require('request');
-request('192.168.1.123:80/ctrl', function (error, response, body) {
-  console.log('error:', error); // Print the error if one occurred
-  console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-  console.log('body:', body); // Print the HTML for the Google homepage.
-});
-*/
