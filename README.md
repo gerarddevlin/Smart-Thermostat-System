@@ -6,4 +6,4 @@ For this project, we created a system of smart thermostats that could be control
 <center><img src="./images/thermostat.JPG" width="50%" /></center>
 
 <center> Web Client :</center>
-<center><img src="./images/webclient.png" width="50%" /></center>
+<center><img src="./images/1.png" width="50%" /></center>
